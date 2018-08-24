@@ -6,13 +6,19 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LayoutComponent } from './layout/layout.component';
 import { OverviewComponent } from './overview/overview.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { FooterComponent } from './layout/footer/footer.component';
+import { SettingsComponent } from './users/settings/settings.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
-    OverviewComponent
+    OverviewComponent,
+    HeaderComponent,
+    FooterComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
