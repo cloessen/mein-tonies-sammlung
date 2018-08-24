@@ -9,6 +9,7 @@ import { OverviewComponent } from './overview/overview.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { SettingsComponent } from './users/settings/settings.component';
+import { ToniesService } from './shared/tonies.service';
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import { SettingsComponent } from './users/settings/settings.component';
     AppRoutingModule,
     NgbModule
   ],
-  providers: [],
+  providers: [ToniesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
