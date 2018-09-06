@@ -1,0 +1,35 @@
+<li class="list-group-item mt-md-1">
+  <span class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex flex-column flex-md-row w-100 justify-content-between">
+      <h5 class="mb-1">{{tonie.name}}</h5>
+      <img src="{{tonie.imgUrl}}" class="img-thumbnail" style="width: 6.9rem; height: 100%">
+    </div>
+    <div class="d-flex flex-column flex-md-row">
+      <div class="d-flex flex-column flex-md-row w-100">
+        <button
+         *ngIf="!tonie.owned"
+         (click)="onOwnedClick(tonie)"
+         class="btn btn-sm btn-success mt-2 mt-md-0 mx-md-2">Habe ich schon</button>
+        <button
+          *ngIf="tonie.owned"
+          (click)="onNotOwnedClick(tonie)"
+          class="btn btn-sm btn-warning mt-2 mt-md-0 mx-md-2">Habe ich nicht mehr</button>
+        <button
+          [disabled]="tonie.owned"
+          *ngIf="!tonie.wish && !tonie.owned"
+          (click)="onWishClick(tonie)"
+          class="btn btn-sm btn-info mt-2 mt-md-0 mx-md-2">Wünsche ich mir</button>
+        <button
+        [disabled]="tonie.owned"
+        *ngIf="tonie.wish && !tonie.owned"
+        (click)="onWishClick(tonie)"
+        class="btn btn-sm btn-warning mt-2 mt-md-0 mx-md-2"
+        ngClass="{{tonie.owned ? 'disabled' : null}}">Wünsche ich mir nicht</button>
+      </div>
+      <div class="d-flex justify-content-end">
+        <a href="{{tonie.itemLink}}" class="btn btn-sm btn-outline-info mt-2 mt-md-0" target="_blank">Link zu Amazon <i class="fas fa-external-link-alt"></i></a>
+      </div>
+    </div>
+
+  </span>
+</li>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ToniesService } from '../shared/tonies.service';
+import { ToniesService } from '../services/tonies.service';
 
 @Component({
   selector: 'app-overview',
@@ -10,11 +10,13 @@ import { ToniesService } from '../shared/tonies.service';
 export class OverviewComponent implements OnInit {
 
   allTonies: Observable<any>;
+  myTonies: Observable<any>;
 
   constructor(private _tonies: ToniesService) { }
 
   ngOnInit() {
     this.allTonies = this._tonies.getAllTonies();
+    this.myTonies = this._tonies.myTonies();
   }
 
 }

@@ -1,19 +1,40 @@
-<!--<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">-->
-  <!--<h1 class="display-4">Pricing</h1>-->
-  <!--<p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>-->
-<!--</div>-->
-<div class="row">
-  <div class="col-lg-3 col-md-4 col-sm-6 col-12 my-1" *ngFor="let tonie of allTonies | async">
-    <div class="card">
-      <img class="card-img-top" src="{{tonie.imgUrl}}" alt="{{tonie.name}}">
-      <div class="card-body">
-        <span class="card-title">{{tonie.name}}</span>
-        <hr>
-        <a href="{{tonie.itemLink}}" target="_blank" class="btn btn-primary">Amazon.de</a>
-      </div>
-    </div>
-  </div>
+<ngb-tabset>
+  <ngb-tab title="Meine Tonies">
+    <ng-template ngbTabContent>
+      <ul class="list-group">
+        <app-tonie-item
+          *ngFor="let tonie of myTonies | async"
+          [tonie]="tonie"
+        ></app-tonie-item>
+      </ul>
 
-</div>
+      <!--<div class="row">-->
+        <!--<app-tonie-card-->
+          <!--class="col-lg-3 col-md-4 col-sm-6 col-12 my-1"-->
+          <!--*ngFor="let tonie of myTonies | async"-->
+          <!--[tonie]="tonie">-->
+        <!--</app-tonie-card>-->
+      <!--</div>-->
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle><b>Alle</b> Tonies</ng-template>
+    <ng-template ngbTabContent>
+      <ul class="list-group">
+        <app-tonie-item
+          *ngFor="let tonie of allTonies | async"
+          [tonie]="tonie"
+        ></app-tonie-item>
+      </ul>
+      <!--<div class="row">-->
+        <!--<app-tonie-card-->
+          <!--class="col-lg-3 col-md-4 col-sm-6 col-12 my-1"-->
+          <!--*ngFor="let tonie of allTonies | async"-->
+          <!--[tonie]="tonie">-->
+        <!--</app-tonie-card>-->
+      <!--</div>-->
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>
 
 

@@ -1,11 +1,38 @@
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 border-bottom shadow-sm">
-  <h5 class="my-0 mr-md-auto font-weight-normal">Meine Tonies<sup style="font-size: 0.75em; line-height:2em;">&copy;</sup> Sammlung</h5>
-  <nav class="my-2 my-md-0 mr-md-3">
-    <a class="p-2 text-dark" routerLink="/" >Übersicht</a>
-    <a class="p-2 text-dark" routerLink="/settings" >Einstellungen</a>
-    <a class="p-2 text-dark" routerLink="/publish" >Link teilen</a>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 border-bottom shadow-sm sticky-top"
+     [ngClass]="scrollPos <= 54 ? 'bg-light' : 'bg-transparent'">
+  <div class="d-flex flex-row">
+    <!--<app-alert style="z-index: 2001; position: absolute; top: 15px; left: 0;width: 100%; margin: 0 auto"></app-alert>-->
+    <span class="h5 my-0 mr-auto font-weight-normal">Meine Tonies<sup style="font-size: 0.75em; line-height:2em;">&copy;</sup> Sammlung</span>
+    <button type="button" class="btn btn-toolbar" (click)="toggleCollapse()"
+            [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+  <nav class="my-2 my-md-0 mr-md-3" id="collapseExample" [ngbCollapse]="isCollapsed">
+    <div class="d-flex flex-column flex-md-row">
+      <a class="mx-3" (click)="toggleCollapse()" routerLink="/" >Übersicht</a>
+      <a class="mx-3" (click)="toggleCollapse()" routerLink="/settings" >Einstellungen</a>
+      <a class="mx-3" (click)="toggleCollapse()" routerLink="/publish" >Link teilen</a>
+      <!--<button-->
+      <!--*ngIf="!(authState$ | async); else logoutBtn"-->
+      <!--class="btn btn-outline-primary mx-1"-->
+      <!--(click)="openModal()">Anmelden</button>-->
+      <button
+        *ngIf="!(authState$ | async); else logoutBtn"
+        class="btn btn-link mx-3" (click)="login()">Anmelden mit Google</button>
+      <ng-template #logoutBtn>
+        <a class="mx-3" (click)="logout()">Abmelden</a>
+      </ng-template>
+    </div>
 
+
+    <!--<div id="collapseExample" [ngbCollapse]="isCollapsed">-->
+      <!--<div class="card">-->
+        <!--<div class="card-body">-->
+          <!--You can collapse this card by clicking Toggle-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
   </nav>
-  <a class="btn btn-outline-primary mx-1" href="#">Anmelden</a>
-  <a class="btn btn-outline-primary mx-1" href="#">Registrieren</a>
+
 </div>

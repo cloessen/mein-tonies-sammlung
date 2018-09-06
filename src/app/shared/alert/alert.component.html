@@ -1,0 +1,4 @@
+<ngb-alert
+  *ngIf="alert.isActive"
+  type="{{alert.messageType}}"
+  (close)="onClose()">{{ alert.message }}</ngb-alert>

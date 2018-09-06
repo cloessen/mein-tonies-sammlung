@@ -1,0 +1,30 @@
+<div class="card bg-light text-dark"
+     [ngClass]="{ 'border-warning' : tonie.wish && !tonie.owned , 'border-success' : tonie.owned }">
+  <div class="card-header border" >{{tonie.name}}</div>
+  <a href="{{tonie.itemLink}}" target="_blank"  placement="bottom" ngbTooltip="{{tonie.name}} bei Amazon.de kaufen (externer Link)">
+    <img class="card-img-top" src="{{tonie.imgUrl}}" alt="{{tonie.name}}">
+  </a>
+  <div class="card-body">
+    <button
+      *ngIf="!tonie.owned"
+      (click)="onOwnedClick(tonie)"
+      class="btn btn-success">Habe ich schon</button>
+    <button
+      *ngIf="tonie.owned"
+      (click)="onNotOwnedClick(tonie)"
+      class="btn btn-warning">Habe ich nicht mehr</button>
+    <button
+      [disabled]="tonie.owned"
+      *ngIf="!tonie.wish && !tonie.owned"
+      (click)="onWishClick(tonie)"
+      class="btn btn-info">Wünsche ich mir</button>
+    <button
+      [disabled]="tonie.owned"
+      *ngIf="tonie.wish && !tonie.owned"
+      (click)="onWishClick(tonie)"
+      class="btn btn-warning"
+      ngClass="{{tonie.owned ? 'disabled' : null}}">Wünsche ich mir nicht mehr</button>
+    <!--<a href="{{tonie.itemLink}}" target="_blank" class="btn btn-primary">Hab ich schon</a>-->
+  </div>
+</div>
+
