@@ -1,38 +1,41 @@
 <ngb-tabset>
   <ngb-tab title="Meine Tonies">
     <ng-template ngbTabContent>
-      <ul class="list-group">
-        <app-tonie-item
-          *ngFor="let tonie of myTonies | async"
-          [tonie]="tonie"
-        ></app-tonie-item>
-      </ul>
-
-      <!--<div class="row">-->
-        <!--<app-tonie-card-->
-          <!--class="col-lg-3 col-md-4 col-sm-6 col-12 my-1"-->
+       <!-- Tonie List-->
+      <!--<ul class="list-group">-->
+        <!--<app-tonie-item-->
           <!--*ngFor="let tonie of myTonies | async"-->
-          <!--[tonie]="tonie">-->
-        <!--</app-tonie-card>-->
-      <!--</div>-->
+          <!--[tonie]="tonie"-->
+        <!--&gt;</app-tonie-item>-->
+      <!--</ul>-->
+      <!-- Tonie Cards -->
+      <div class="row">
+        <app-tonie-card
+          class="col-lg-2 col-md-3 col-sm-4 col-12"
+          *ngFor="let tonie of myTonies | async"
+          [tonie]="tonie">
+        </app-tonie-card>
+      </div>
     </ng-template>
   </ngb-tab>
   <ngb-tab>
     <ng-template ngbTabTitle><b>Alle</b> Tonies</ng-template>
     <ng-template ngbTabContent>
-      <ul class="list-group">
-        <app-tonie-item
-          *ngFor="let tonie of allTonies | async"
-          [tonie]="tonie"
-        ></app-tonie-item>
-      </ul>
-      <!--<div class="row">-->
-        <!--<app-tonie-card-->
-          <!--class="col-lg-3 col-md-4 col-sm-6 col-12 my-1"-->
+      <!-- Tonie LIST-->
+      <!--<ul class="list-group">-->
+        <!--<app-tonie-item-->
           <!--*ngFor="let tonie of allTonies | async"-->
-          <!--[tonie]="tonie">-->
-        <!--</app-tonie-card>-->
-      <!--</div>-->
+          <!--[tonie]="tonie"-->
+        <!--&gt;</app-tonie-item>-->
+      <!--</ul>-->
+      <!-- Tonie Card-->
+      <div class="row">
+        <app-tonie-card
+          class="col-lg-2 col-md-3 col-sm-4 col-12"
+          *ngFor="let tonie of allTonies | async"
+          [tonie]="tonie">
+        </app-tonie-card>
+      </div>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>

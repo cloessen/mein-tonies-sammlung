@@ -1,36 +1,87 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { auth } from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 import { AlertService } from './alert.service';
-import { LoginComponent } from '../shared/modals/login/login.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginSuccessComponent } from '../shared/modals/login-success/login-success.component';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LogoutSuccessComponent } from '../shared/modals/logout-success/logout-success.component';
+import { Router } from '@angular/router';
+import { SignupSuccessComponent } from '../shared/modals/signup-success/signup-success.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(public _afAuth: AngularFireAuth, private _alert: AlertService, private _modalService: NgbModal) {
+  constructor(
+    private _afAuth: AngularFireAuth,
+    private _alert: AlertService,
+    private _modalService: NgbModal,
+    private router: Router) {
 
   }
-  public loginWithEmailPassword(email, password) {
-    return this._afAuth.auth.signInWithEmailAndPassword(email, password);
+  private loginSuccess() {
+    this._modalService.open(LoginSuccessComponent, {windowClass: 'success-modal', backdrop: false});
+    this.router.navigate(['/collection']);
   }
-  public  loginWithGoogle() {
-    this._afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(response => {
-      console.log(response);
-      // TODO: Build a Success component and a Error Component!!!!111elf
-      this._modalService.open(LoginComponent, {windowClass: 'success-modal', backdrop: false, size: 'lg'});
+  private signupSuccess() {
+    this._modalService.open(SignupSuccessComponent, {windowClass: 'success-modal', size: 'lg', backdrop: false});
+    this.router.navigate(['/collection']);
+  }
 
-      // this._alert.openAlert('Herzlich Willkommen', 'success');
+
+  public signupWithEmailPassword(email, password, activeModal: NgbActiveModal) {
+    this._afAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then( () => {
+        activeModal.close();
+        this.signupSuccess();
+      }).catch(err => console.log(err.message));
+  }
+  public loginWithEmailPassword(email, password, activeModal: NgbActiveModal) {
+    this._afAuth.auth.signInWithEmailAndPassword(email, password).then(
+      () => {
+        activeModal.close();
+        this.loginSuccess();
+      }
+    );
+  }
+  public loginWithGoogle(activeModal: NgbActiveModal) {
+    this._afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(response => {
+      this.loginSuccess();
+      activeModal.close();
+    }).catch(e => {
+      this._alert.openAlert(e.message, 'danger');
+    });
+  }
+  public signupWithGoogle(activeModal: NgbActiveModal) {
+    this._afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(response => {
+      this.signupSuccess();
+      activeModal.close();
+    }).catch(e => {
+      this._alert.openAlert(e.message, 'danger');
+    });
+  }
+  public loginWithFacebook(activeModal: NgbActiveModal) {
+    this._afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(response => {
+      this.loginSuccess();
+      activeModal.close();
+    }).catch(e => {
+      this._alert.openAlert(e.message, 'danger');
+    });
+  }
+  public signupWithFacebook(activeModal: NgbActiveModal) {
+    this._afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(response => {
+      this.signupSuccess();
+      activeModal.close();
     }).catch(e => {
       this._alert.openAlert(e.message, 'danger');
     });
   }
   public logout() {
     this._afAuth.auth.signOut().then( response => {
-      console.log(response);
-      this._alert.openAlert('Erfolgreich abgemeldet', 'success');
+      this._modalService.open(LogoutSuccessComponent, {windowClass: 'success-modal', backdrop: false});
+      this.router.navigate(['/']);
     });
   }
   public getAuthState() {

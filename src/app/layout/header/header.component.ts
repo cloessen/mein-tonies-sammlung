@@ -3,7 +3,9 @@ import { AlertService } from '../../services/alert.service';
 import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { LoginComponent } from '../../shared/modals/login/login.component';
+import { LoginMenuComponent } from '../login-menu/login-menu.component';
+import { SignupMenuComponent } from '../signup-menu/signup-menu.component';
+// import { NgbDropdownToggle } from '@ng-bootstrap/ng-bootstrap/dropdown/dropdown';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +17,6 @@ export class HeaderComponent implements OnInit {
   public isCollapsed = true;
   public scrollPos = 0;
   public authState$: Observable<any>;
-  public currentModal: any;
 
   @HostListener('window:scroll', ['$event'])
   doSomething(event) {
@@ -28,30 +29,19 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.authState$ = this._auth.getAuthState();
-    // console.log(typeof this.authState$);
     this._auth.getAuthState().subscribe(state => state ? console.log( state) : null );
-    // console.log(this._auth.getAuthState());
   }
-  login() {
-    this._auth.loginWithGoogle();
-    if (!this.isCollapsed) { this.toggleCollapse();}
-    // this._alert.openAlert('Willkommen, Du bist Erfolgreich angemeldet', 'success', 3000);
+  handleRegister() {
+    this._modalService.open(SignupMenuComponent, {centered: true, windowClass: 'centered-modal'});
   }
-  logout() {
+  handleLogin() {
+    this._modalService.open(LoginMenuComponent, {centered: true, windowClass: 'centered-modal'});
+  }
+  handleLogout() {
     this._auth.logout();
-    if (!this.isCollapsed) { this.toggleCollapse();}
-    // this.openModal();
   }
   toggleCollapse() {
     this.isCollapsed = !this.isCollapsed;
-  }
-  openModal() {
-    this._modalService.open(LoginComponent, {windowClass: 'success-modal', backdrop: false});
-    // setTimeout(this._modalService.dismissAll, 1000);
-    // this._modalService.open(LoginComponent, {backdrop: false});
-  }
-  closeModal() {
-    this.currentModal.dismiss();
   }
 }
 
