@@ -1,104 +1,47 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Injectable, OnInit } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Tonie } from '../shared/tonies';
+import { AuthService } from './auth.service';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ToniesService {
+export class ToniesService implements OnInit{
 
-  private toniesData = [
-    {
-      imgUrl: 'https://images-na.ssl-images-amazon.com/images/I/61QB8h1Y0gL._SL1200_.jpg',
-      itemLink: 'https://amzn.to/2LeRRmR',
-      name: '1 Tonies® Hörfigur - 30 Lieblings-Kinderlieder - Geburtstagslieder',
-      owned: true,
-      wish: false
-    },
-    {
-      imgUrl: 'https://images-na.ssl-images-amazon.com/images/I/61QB8h1Y0gL._SL1200_.jpg',
-      itemLink: 'https://amzn.to/2LeRRmR',
-      name: '2 Tonies® Hörfigur - 30 Lieblings-Kinderlieder - Geburtstagslieder',
-      owned: true,
-      wish: false
-    },
-    {
-      imgUrl: 'https://images-na.ssl-images-amazon.com/images/I/61QB8h1Y0gL._SL1200_.jpg',
-      itemLink: 'https://amzn.to/2LeRRmR',
-      name: '3 Tonies® Hörfigur - 30 Lieblings-Kinderlieder - Geburtstagslieder',
-      owned: false,
-      wish: false
-    },
-    {
-      imgUrl: 'https://images-na.ssl-images-amazon.com/images/I/61QB8h1Y0gL._SL1200_.jpg',
-      itemLink: 'https://amzn.to/2LeRRmR',
-      name: '4 Tonies® Hörfigur - 30 Lieblings-Kinderlieder - Geburtstagslieder',
-      owned: false,
-      wish: false
-    },  {
-      imgUrl: 'https://images-na.ssl-images-amazon.com/images/I/61QB8h1Y0gL._SL1200_.jpg',
-      itemLink: 'https://amzn.to/2LeRRmR',
-      name: '5 Tonies® Hörfigur - 30 Lieblings-Kinderlieder - Geburtstagslieder',
-      owned: false,
-      wish: false
-    },
-    {
-      imgUrl: 'https://images-na.ssl-images-amazon.com/images/I/61QB8h1Y0gL._SL1200_.jpg',
-      itemLink: 'https://amzn.to/2LeRRmR',
-      name: '6 Tonies® Hörfigur - 30 Lieblings-Kinderlieder - Geburtstagslieder',
-      owned: false,
-      wish: false
-    },
-    {
-      imgUrl: 'https://images-na.ssl-images-amazon.com/images/I/61QB8h1Y0gL._SL1200_.jpg',
-      itemLink: 'https://amzn.to/2LeRRmR',
-      name: '7 Tonies® Hörfigur - 30 Lieblings-Kinderlieder - Geburtstagslieder',
-      owned: true,
-      wish: false
-    },
-    {
-      imgUrl: 'https://images-na.ssl-images-amazon.com/images/I/61QB8h1Y0gL._SL1200_.jpg',
-      itemLink: 'https://amzn.to/2LeRRmR',
-      name: '8 Tonies® Hörfigur - 30 Lieblings-Kinderlieder - Geburtstagslieder',
-      owned: true,
-      wish: false
-    },
-    {
-      imgUrl: 'https://images-na.ssl-images-amazon.com/images/I/61QB8h1Y0gL._SL1200_.jpg',
-      itemLink: 'https://amzn.to/2LeRRmR',
-      name: '9 Tonies® Hörfigur - 30 Lieblings-Kinderlieder - Geburtstagslieder',
-      owned: false,
-      wish: false
-    },
-    {
-      imgUrl: 'https://images-na.ssl-images-amazon.com/images/I/61QB8h1Y0gL._SL1200_.jpg',
-      itemLink: 'https://amzn.to/2LeRRmR',
-      name: '10 Tonies® Hörfigur - 30 Lieblings-Kinderlieder - Geburtstagslieder',
-      owned: true,
-      wish: false
-    },
-    {
-      imgUrl: 'https://images-na.ssl-images-amazon.com/images/I/61QB8h1Y0gL._SL1200_.jpg',
-      itemLink: 'https://amzn.to/2LeRRmR',
-      name: '11 Tonies® Hörfigur - 30 Lieblings-Kinderlieder - Geburtstagslieder',
-      owned: false,
-      wish: false
-    }
-    ];
+  // allTonies: Tonie[];
+  // myTonies: Tonie[];
+  allToniesCol: AngularFirestoreCollection;
+  myToniesCol: AngularFirestoreCollection;
+  uid: string;
 
-  constructor() { }
+  constructor(
+    private _db: AngularFirestore,
+    private _auth: AuthService
+  ) {
+    // this.uid = this._auth.getUid();
+    console.log('TONIESSERVICE Constructor');
+    this.allToniesCol = this._db.collection('tonies');
+    this.myToniesCol = this._db.collection('users');
+    this.uid = localStorage.getItem('uid');
+  }
+
+  ngOnInit() {
+  }
 
   public getAllTonies() {
-    return of(this.toniesData);
+    return this.allToniesCol.valueChanges();
   }
-  public myTonies() {
-    return of(this.toniesData.filter((tonie) => tonie.owned));
+  public getMyTonies() {
+      return this.myToniesCol.doc(this.uid).collection('myTonies').valueChanges();
   }
+
   public toggleOwned(tonie) {
-    const currentTonie = this.toniesData.indexOf(tonie);
-    this.toniesData[currentTonie].owned = !this.toniesData[currentTonie].owned;
+    // const currentTonie = this.toniesData.indexOf(tonie);
+    // this.toniesData[currentTonie].owned = !this.toniesData[currentTonie].owned;
   }
   public toggleWish(tonie) {
-    const currentTonie = this.toniesData.indexOf(tonie);
-    this.toniesData[currentTonie].wish = !this.toniesData[currentTonie].wish;
+    // const currentTonie = this.toniesData.indexOf(tonie);
+    // this.toniesData[currentTonie].wish = !this.toniesData[currentTonie].wish;
   }
 }

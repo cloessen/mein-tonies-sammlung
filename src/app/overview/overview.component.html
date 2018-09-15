@@ -1,6 +1,14 @@
 <ngb-tabset>
   <ngb-tab title="Meine Tonies">
     <ng-template ngbTabContent>
+      <!--<div class="mx-auto">-->
+        <!--<form class="form-inline my-1 mx-auto">-->
+          <!--<div class="form-group">-->
+            <!--<input type="search" class="form-control form-control-sm">-->
+          <!--</div>-->
+          <!--<button class="btn btn-primary btn-sm">Tonies<sup style="font-size: 0.75em; line-height:2em;">&reg;</sup> durchsuchen</button>-->
+        <!--</form>-->
+      <!--</div>-->
        <!-- Tonie List-->
       <!--<ul class="list-group">-->
         <!--<app-tonie-item-->
@@ -9,9 +17,9 @@
         <!--&gt;</app-tonie-item>-->
       <!--</ul>-->
       <!-- Tonie Cards -->
-      <div class="row">
+      <div class="row mt-2">
         <app-tonie-card
-          class="col-lg-2 col-md-3 col-sm-4 col-12"
+          class="col-lg-2 col-md-3 col-sm-6 col-12"
           *ngFor="let tonie of myTonies | async"
           [tonie]="tonie">
         </app-tonie-card>
@@ -21,6 +29,15 @@
   <ngb-tab>
     <ng-template ngbTabTitle><b>Alle</b> Tonies</ng-template>
     <ng-template ngbTabContent>
+      <!--<div class="float-right mx-auto">-->
+        <!--<form class="form-inline">-->
+          <!--<div class="form-group">-->
+            <!--<input type="search" class="form-control form-control-sm">-->
+          <!--</div>-->
+          <!--<button class="btn btn-primary btn-sm">Tonies<sup style="font-size: 0.75em; line-height:2em;">&reg;</sup> durchsuchen</button>-->
+        <!--</form>-->
+      <!--</div>-->
+      <!--<div class="clearfix"></div>-->
       <!-- Tonie LIST-->
       <!--<ul class="list-group">-->
         <!--<app-tonie-item-->
@@ -29,9 +46,10 @@
         <!--&gt;</app-tonie-item>-->
       <!--</ul>-->
       <!-- Tonie Card-->
-      <div class="row">
+      <div class="card-group mt-2">
         <app-tonie-card
-          class="col-lg-2 col-md-3 col-sm-4 col-12"
+          class="col-lg-2 col-md-4 col-sm-6 col-12"
+
           *ngFor="let tonie of allTonies | async"
           [tonie]="tonie">
         </app-tonie-card>

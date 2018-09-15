@@ -29,6 +29,7 @@ import { LoginMenuComponent } from './layout/login-menu/login-menu.component';
 import { SignupMenuComponent } from './layout/signup-menu/signup-menu.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupSuccessComponent } from './shared/modals/signup-success/signup-success.component';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { SignupSuccessComponent } from './shared/modals/signup-success/signup-su
     NgbModalModule,
     NgbDropdownModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFirestoreModule
   ],
   providers: [
     ToniesService,

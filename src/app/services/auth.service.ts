@@ -19,13 +19,20 @@ export class AuthService {
     private _alert: AlertService,
     private _modalService: NgbModal,
     private router: Router) {
-
+    this._afAuth.authState.subscribe(data => {
+      console.log(data);
+      if (data) {
+        localStorage.setItem('uid', data.uid);
+      }
+    });
   }
-  private loginSuccess() {
+  private loginSuccess(uid?) {
+    this.uid = uid;
     this._modalService.open(LoginSuccessComponent, {windowClass: 'success-modal', backdrop: false});
     this.router.navigate(['/collection']);
   }
-  private signupSuccess() {
+  private signupSuccess(uid?) {
+    this.uid = uid;
     this._modalService.open(SignupSuccessComponent, {windowClass: 'success-modal', size: 'lg', backdrop: false});
     this.router.navigate(['/collection']);
   }
@@ -33,14 +40,16 @@ export class AuthService {
 
   public signupWithEmailPassword(email, password, activeModal: NgbActiveModal) {
     this._afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then( () => {
+      .then( (resp) => {
+        console.log(resp);
         activeModal.close();
         this.signupSuccess();
       }).catch(err => console.log(err.message));
   }
   public loginWithEmailPassword(email, password, activeModal: NgbActiveModal) {
     this._afAuth.auth.signInWithEmailAndPassword(email, password).then(
-      () => {
+      (resp) => {
+        console.log(resp);
         activeModal.close();
         this.loginSuccess();
       }
@@ -80,6 +89,7 @@ export class AuthService {
   }
   public logout() {
     this._afAuth.auth.signOut().then( response => {
+      localStorage.clear();
       this._modalService.open(LogoutSuccessComponent, {windowClass: 'success-modal', backdrop: false});
       this.router.navigate(['/']);
     });
@@ -87,4 +97,7 @@ export class AuthService {
   public getAuthState() {
     return this._afAuth.authState;
   }
+  // public getUid() {
+  //   return this.uid;
+  // }
 }

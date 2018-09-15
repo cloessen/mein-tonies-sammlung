@@ -1,6 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 
+//$grid-columns: 16;
+
 @import "~bootstrap/scss/bootstrap";
+
+//app-tonie-card:last-of-type{
+//  margin-bottom: 45px;
+//}
+
+footer{
+  margin-top: 150px;
+}
+
 .grayed-out{
   background-color: rgba(0,0,0,0.36);
 }

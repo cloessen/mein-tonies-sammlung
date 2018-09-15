@@ -16,7 +16,7 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit() {
     this.allTonies = this._tonies.getAllTonies();
-    this.myTonies = this._tonies.myTonies();
+    this.myTonies = this._tonies.getMyTonies();
   }
 
 }
