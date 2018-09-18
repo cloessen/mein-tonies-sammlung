@@ -30,6 +30,12 @@ import { SignupMenuComponent } from './layout/signup-menu/signup-menu.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupSuccessComponent } from './shared/modals/signup-success/signup-success.component';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AuthGuardService } from './services/auth-guard.service';
+import { MyToniesComponent } from './overview/my-tonies/my-tonies.component';
+import { AllToniesComponent } from './overview/all-tonies/all-tonies.component';
+import { MyWishlistComponent } from './overview/my-wishlist/my-wishlist.component';
+import { StoreModule } from '@ngrx/store';
+import { UiReducer } from './app.reducer';
 
 
 @NgModule({
@@ -49,7 +55,10 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     LandingPageComponent,
     LoginMenuComponent,
     SignupMenuComponent,
-    SignupSuccessComponent
+    SignupSuccessComponent,
+    MyToniesComponent,
+    AllToniesComponent,
+    MyWishlistComponent
   ],
   imports: [
     BrowserModule,
@@ -62,12 +71,14 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     NgbDropdownModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    StoreModule.forRoot({ui: UiReducer})
   ],
   providers: [
     ToniesService,
     AlertService,
-    AuthService
+    AuthService,
+    AuthGuardService
   ],
   entryComponents: [
     LoginSuccessComponent,

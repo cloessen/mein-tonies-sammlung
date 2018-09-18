@@ -1,0 +1,8 @@
+<div class="row mt-2">
+  <app-tonie-card
+    [myList]="true"
+    class="col-lg-2 col-md-3 col-sm-6 col-12"
+    *ngFor="let tonie of myTonies | async"
+    [tonie]="tonie">
+  </app-tonie-card>
+</div>

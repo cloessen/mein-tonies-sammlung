@@ -15,8 +15,8 @@ export class OverviewComponent implements OnInit {
   constructor(private _tonies: ToniesService) { }
 
   ngOnInit() {
-    this.allTonies = this._tonies.getAllTonies();
-    this.myTonies = this._tonies.getMyTonies();
+    // this.allTonies = this._tonies.getAllTonies();
+    // this.myTonies = this._tonies.getMyTonies();
   }
 
 }

@@ -11,7 +11,8 @@
   </div>
   <div class="card-footer d-flex justify-content-around" *ngIf="hoverState == 'hover'">
     <span
-      *ngIf="!tonie.owned"
+      (click)="handleAddTonie(tonie)"
+      *ngIf="!myList"
       placement="top"
       container="body"
       ngbTooltip="Zu meinen Tonies"
@@ -19,7 +20,8 @@
       <i class="far fa-plus-square fa-2x"></i>
     </span>
     <span
-      *ngIf="tonie.owned"
+      (click)="handleRemoveTonie(tonie)"
+      *ngIf="myList"
       placement="top"
       container="body"
       ngbTooltip="von meinen Tonies entfernen"
@@ -28,31 +30,14 @@
     </span>
     <ng-template #tipContent>Link zu Amazon <i class="fas fa-external-link-alt"></i></ng-template>
     <a
-      *ngIf="!tonie.owned"
+      *ngIf="!myList"
       container="body"
       [ngbTooltip]="tipContent"
       href="{{tonie.itemLink}}"
       target="_blank"
       class="badge badge-info"><i class="fab fa-amazon fa-2x"></i>
     </a>
-    <!--<div class="btn-group align-self-center" ngbDropdown>-->
-      <!--<button type="button" class="btn btn-primary btn-block" ngbDropdownToggle>Optionen</button>-->
-        <!--<div class="dropdown-menu" ngbDropdownMenu>-->
-          <!--<button class="dropdown-item">Habe ich Schon</button>-->
-          <!--<button class="dropdown-item">Two</button>-->
-          <!--<button class="dropdown-item">Four!</button>-->
-          <!--<div *ngIf="!tonie.owned" class="dropdown-divider"></div>-->
-          <!--<a-->
-            <!--*ngIf="!tonie.owned"-->
-            <!--href="{{tonie.itemLink}}"-->
-            <!--class="dropdown-item"-->
-            <!--target="_blank">-->
-            <!--<i class="fas fa-shopping-cart"></i>-->
-            <!--Amazon-->
-            <!--<i class="fas fa-external-link-alt"></i>-->
-          <!--</a>-->
-        <!--</div>-->
-      <!--</div>-->
+
   </div>
 </div>
 

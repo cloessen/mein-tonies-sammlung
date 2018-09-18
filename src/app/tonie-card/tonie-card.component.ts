@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToniesService } from '../services/tonies.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Tonie } from '../shared/interfaces/tonies';
 
 @Component({
   selector: 'app-tonie-card',
@@ -21,6 +22,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class TonieCardComponent implements OnInit {
   @Input() tonie: any;
+  @Input() myList: false;
   hoverState = 'normal';
 
   constructor(private _tonies: ToniesService) { }
@@ -29,6 +31,12 @@ export class TonieCardComponent implements OnInit {
   }
   handleHover(val) {
     this.hoverState = val;
+  }
+  handleAddTonie(tonie: Tonie) {
+    this._tonies.addTonie(tonie);
+  }
+  handleRemoveTonie(tonie: Tonie) {
+    this._tonies.removeTonie(tonie);
   }
   // onOwnedClick(tonie) {
   //   this._tonies.toggleOwned(tonie);

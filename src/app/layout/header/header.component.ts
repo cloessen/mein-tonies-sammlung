@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginMenuComponent } from '../login-menu/login-menu.component';
 import { SignupMenuComponent } from '../signup-menu/signup-menu.component';
-// import { NgbDropdownToggle } from '@ng-bootstrap/ng-bootstrap/dropdown/dropdown';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -25,11 +25,18 @@ export class HeaderComponent implements OnInit {
   constructor(
     private _alert: AlertService,
     private _auth: AuthService,
-    private _modalService: NgbModal) { }
+    private _modalService: NgbModal,
+    private _route: ActivatedRoute) { }
 
   ngOnInit() {
     this.authState$ = this._auth.getAuthState();
     this._auth.getAuthState().subscribe(state => state ? console.log( state) : null );
+    this._route.queryParams.subscribe(params => {
+      console.log('ROUTE PRAMS: ', params);
+      if (params.redirect === 'login') {
+        this.handleLogin();
+      }
+    });
   }
   handleRegister() {
     this._modalService.open(SignupMenuComponent, {centered: true, windowClass: 'centered-modal'});

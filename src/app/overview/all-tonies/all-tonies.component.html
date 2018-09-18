@@ -1,0 +1,7 @@
+<div class="card-group mt-2">
+  <app-tonie-card
+    class="col-lg-2 col-md-4 col-sm-6 col-12"
+    *ngFor="let tonie of allTonies | async"
+    [tonie]="tonie">
+  </app-tonie-card>
+</div>

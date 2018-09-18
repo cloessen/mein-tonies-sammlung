@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { OverviewComponent } from './overview/overview.component';
 import { SettingsComponent } from './users/settings/settings.component';
 import { LandingPageComponent } from './layout/landing-page/landing-page.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -11,11 +12,14 @@ const routes: Routes = [
   },
   {
     path: 'collection',
-    component: OverviewComponent
+    component: OverviewComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'settings',
-    component: SettingsComponent
+    component: SettingsComponent,
+    canActivate: [AuthGuardService]
+
   },
   {
     path: '**',

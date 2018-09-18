@@ -14,17 +14,13 @@ import { SignupSuccessComponent } from '../shared/modals/signup-success/signup-s
 })
 export class AuthService {
 
+  uid: string;
+
   constructor(
     private _afAuth: AngularFireAuth,
     private _alert: AlertService,
     private _modalService: NgbModal,
     private router: Router) {
-    this._afAuth.authState.subscribe(data => {
-      console.log(data);
-      if (data) {
-        localStorage.setItem('uid', data.uid);
-      }
-    });
   }
   private loginSuccess(uid?) {
     this.uid = uid;
@@ -97,7 +93,10 @@ export class AuthService {
   public getAuthState() {
     return this._afAuth.authState;
   }
-  // public getUid() {
-  //   return this.uid;
-  // }
+  public getUid() {
+    return this._afAuth.auth.currentUser.uid;
+  }
+  public isLoggedIn() {
+    return this._afAuth.auth.currentUser ? true : false
+  }
 }
