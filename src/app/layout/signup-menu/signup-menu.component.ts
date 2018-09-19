@@ -2,15 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
-// class PasswordValidation {
-//   static matchPasswords(control: AbstractControl) {
-//     console.log(control);
-//     const password = SignupMenuComponent.signupForm.get('password').value;
-//     const confirmPassword = control.get('confirmPassword').value;
-//     return password === confirmPassword ? null : {'passwordsDontMatch': true};
-//   }
-// }
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState, getIsLoading } from '../../app.reducers';
 
 @Component({
   selector: 'app-signup-menu',
@@ -20,12 +14,17 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class SignupMenuComponent implements OnInit {
 
   public signupForm: FormGroup;
+  public isLoading$: Observable<boolean>;
+
 
   constructor(
     private _auth: AuthService,
-    private activeModal: NgbActiveModal) { }
+    private activeModal: NgbActiveModal,
+    private _store: Store<AppState>
+  ) { }
 
   ngOnInit() {
+    this.isLoading$ = this._store.select(getIsLoading);
     this.signupForm = new FormGroup({
       'email': new FormControl(
         null,

@@ -1,4 +1,4 @@
-<div *ngIf="isLoading" class="container rounded grayed-out position-absolute" style="z-index: 100; margin-top: -1px; margin-bottom: 1px;  height: calc(100% + 2px); overflow: hidden">
+<div *ngIf="isLoading$ | async" class="container rounded grayed-out position-absolute" style="z-index: 100; margin-top: -1px; margin-bottom: 1px;  height: calc(100% + 2px); overflow: hidden">
   <div class="row mx-auto" style="height: 100%">
     <div class="col-md-8 mx-auto" style="height: 100%">
       <div style="height: 100%; margin-top: 50%" class="mx-auto text-center align-content-center">
@@ -15,7 +15,6 @@
       [formGroup]="loginForm"
       (ngSubmit)="handleEmailLogin()">
       <div class="form-group">
-
         <label for="email">Emailadresse</label>
         <input
           [ngClass]="{'is-invalid': email.hasError('email') || email.hasError('required') && email.touched}"

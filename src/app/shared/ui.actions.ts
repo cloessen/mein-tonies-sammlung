@@ -1,4 +1,3 @@
-// counter.actions.ts
 import { Action } from '@ngrx/store';
 
 export enum UIActionTypes {
@@ -14,4 +13,4 @@ export class StopLoading implements Action {
   readonly type = UIActionTypes.STOP_LOADING;
 }
 
-export type UIActionsUnion = StartLoading | StopLoading ;
+export type UIActions = StartLoading | StopLoading ;

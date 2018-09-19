@@ -35,8 +35,20 @@ import { MyToniesComponent } from './overview/my-tonies/my-tonies.component';
 import { AllToniesComponent } from './overview/all-tonies/all-tonies.component';
 import { MyWishlistComponent } from './overview/my-wishlist/my-wishlist.component';
 import { StoreModule } from '@ngrx/store';
-import { UiReducer } from './app.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducers } from './app.reducers';
+import { GlobalConfig, ToastrModule } from 'ngx-toastr';
 
+
+const globalToastrConfig: Partial<GlobalConfig> = {
+  timeOut: 2000,
+  extendedTimeOut: 1,
+  maxOpened: 3,
+  autoDismiss: true,
+  positionClass: 'toast-top-center',
+  easeTime: 300,
+  progressBar: true
+};
 
 @NgModule({
   declarations: [
@@ -72,7 +84,12 @@ import { UiReducer } from './app.reducer';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    StoreModule.forRoot({ui: UiReducer})
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
+    ToastrModule.forRoot(globalToastrConfig)
   ],
   providers: [
     ToniesService,

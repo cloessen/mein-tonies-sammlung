@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AppState, getIsLoading } from '../../app.reducers';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login-menu',
@@ -11,14 +14,16 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class LoginMenuComponent implements OnInit {
 
   public loginForm: FormGroup;
-  public isLoading = false;
+  public isLoading$: Observable<boolean>;
 
   constructor(
     private _auth: AuthService,
-    private activeModal: NgbActiveModal
+    private activeModal: NgbActiveModal,
+    private _store: Store<AppState>
   ) { }
 
   ngOnInit() {
+    this.isLoading$ = this._store.select(getIsLoading);
     this.loginForm = new FormGroup({
       'email': new FormControl(null, Validators.required),
       'password': new FormControl(null, Validators.required)
@@ -27,18 +32,14 @@ export class LoginMenuComponent implements OnInit {
 
   // HANDLE DIFFERENT LOGINS
   public handleEmailLogin() {
-    this.isLoading = true;
     this._auth.loginWithEmailPassword(this.email.value, this.password.value, this.activeModal);
   }
   public handleGoogleLogin() {
-    this.isLoading = true;
     this._auth.loginWithGoogle(this.activeModal);
-    // this.activeModal.close();
   }
   public handleFacebookLogin() {
-    this.isLoading = true;
     this._auth.loginWithFacebook(this.activeModal);
-    // this.activeModal.close();
+
   }
 
   // GETTERS

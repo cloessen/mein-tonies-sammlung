@@ -3,10 +3,19 @@
 //$grid-columns: 16;
 
 @import "~bootstrap/scss/bootstrap";
+@import '~ngx-toastr/toastr-bs4-alert';
 
 //app-tonie-card:last-of-type{
 //  margin-bottom: 45px;
 //}
+
+.toast{
+  width: fit-content !important;
+  min-width: 350px;
+  *{
+    text-align: center;
+  }
+}
 
 footer{
   margin-top: 150px;
