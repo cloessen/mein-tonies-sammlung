@@ -2,27 +2,24 @@ import { Injectable, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Tonie } from '../shared/interfaces/tonies';
 import { AuthService } from './auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToniesService implements OnInit {
 
-  // allTonies: Tonie[];
-  // myTonies: Tonie[];
   allToniesCol: AngularFirestoreCollection;
   myToniesCol: AngularFirestoreCollection;
-  uid: string;
 
   constructor(
     private _db: AngularFirestore,
-    private _auth: AuthService
+    private _auth: AuthService,
+    private _toastr: ToastrService
   ) {
-    // this.uid = this._auth.getUid();
     console.log('TONIESSERVICE Constructor');
     this.allToniesCol = this._db.collection('tonies');
     this.myToniesCol = this._db.collection('users');
-    // this.uid = localStorage.getItem('uid');
   }
 
   ngOnInit() {
@@ -40,23 +37,10 @@ export class ToniesService implements OnInit {
   }
   public addTonie(tonie: Tonie) {
     console.log(tonie);
-    // const id = this._db.createId();
-    const checkRef = this.myToniesCol.doc(this._auth.getUid()).collection('myTonies').doc(tonie.name);
-    console.log(checkRef);
-    checkRef.snapshotChanges().subscribe(snap => {
-      if (snap.payload.exists) {
-        console.log('exists');
-        return;
-      } else {
-        checkRef.set(tonie).then(res => console.log(res));
-      }
-    } );
-    // this.myToniesCol.doc(this._auth.getUid())
-    //   .collection('myTonies')
-    //   .doc(tonie.name)
-    //   .set(tonie)
-    //   .then(console.log);
-    // this.myToniesCol.doc(this._auth.getUid()).collection('myTonies').add({...tonie, id}).then(resp => console.log(resp));
+    const tonieRef = this.myToniesCol.doc(this._auth.getUid()).collection('myTonies').doc(tonie.name);
+    tonieRef.set(tonie)
+      .then(res => this._toastr.success('zu deiner Sammlung hinzugefügt!', `${tonie.name}`))
+      .catch(err => this._toastr.error(err.message));
   }
   public removeTonie(tonie: Tonie) {
     console.log(tonie);
@@ -65,7 +49,7 @@ export class ToniesService implements OnInit {
       .collection('myTonies')
       .doc(tonie.name)
       .delete()
-      .then(res => console.log(res));
+      .then(res => this._toastr.success(`aus deiner Sammlung erntfernt`, `${tonie.name}`));
     // this.myToniesCol.doc(this._auth.getUid())
     //   .collection('myTonies', ref => ref.where('id', '==', tonie.id)).get({})
     //   .subscribe(docs => {

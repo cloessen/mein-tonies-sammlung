@@ -32,7 +32,6 @@ export class HeaderComponent implements OnInit {
     this.authState$ = this._auth.getAuthState();
     this._auth.getAuthState().subscribe(state => state ? console.log( state) : null );
     this._route.queryParams.subscribe(params => {
-      console.log('ROUTE PRAMS: ', params);
       if (params.redirect === 'login') {
         this.handleLogin();
       }

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState, getIsLoading } from '../../app.reducers';
 import { Observable } from 'rxjs';
+import { SignupMenuComponent } from '../signup-menu/signup-menu.component';
 
 @Component({
   selector: 'app-login-menu',
@@ -19,7 +20,8 @@ export class LoginMenuComponent implements OnInit {
   constructor(
     private _auth: AuthService,
     private activeModal: NgbActiveModal,
-    private _store: Store<AppState>
+    private _store: Store<AppState>,
+    private _modalService: NgbModal
   ) { }
 
   ngOnInit() {
@@ -40,6 +42,12 @@ export class LoginMenuComponent implements OnInit {
   public handleFacebookLogin() {
     this._auth.loginWithFacebook(this.activeModal);
 
+  }
+
+  handleOpenSignup() {
+    console.log('handleOpenSignup');
+    this.activeModal.close();
+    this._modalService.open(SignupMenuComponent, {centered: true, windowClass: 'centered-modal'});
   }
 
   // GETTERS
