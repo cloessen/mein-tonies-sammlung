@@ -28,7 +28,13 @@ export class AuthService {
   private loginSuccess() {
     // JUST FOR TESTING
     this._store.dispatch(new LoadedAllTonies([
-      {name: 'test tonie', imgUrl: 'https://media.giphy.com/media/13CoXDiaCcCoyk/giphy.gif', id: '123', itemLink: 'google.de'}
+      {
+        name: 'test tonie',
+        imgUrl: 'https://media.giphy.com/media/13CoXDiaCcCoyk/giphy.gif',
+        id: '123',
+        itemLink: 'google.de',
+        category: 'Tonies'
+      }
       ]
     ));
     const title = 'Erfolgreich angemeldet!';

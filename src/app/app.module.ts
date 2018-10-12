@@ -38,6 +38,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './app.reducers';
 import { GlobalConfig, ToastrModule } from 'ngx-toastr';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
 
 const globalToastrConfig: Partial<GlobalConfig> = {
@@ -70,7 +71,8 @@ const globalToastrConfig: Partial<GlobalConfig> = {
     SignupSuccessComponent,
     MyToniesComponent,
     AllToniesComponent,
-    MyWishlistComponent
+    MyWishlistComponent,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,

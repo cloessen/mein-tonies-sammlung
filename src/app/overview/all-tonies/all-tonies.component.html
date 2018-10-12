@@ -1,7 +1,17 @@
-<div class="card-group mt-2">
+<!--<div class="row mt-2">-->
+  <!--<app-tonie-card-->
+    <!--[myList]="false"-->
+    <!--class="col-lg-3 col-md-4 col-sm-6 col-12"-->
+    <!--*ngFor="let tonie of allTonies | async"-->
+    <!--[tonie]="tonie">-->
+  <!--</app-tonie-card>-->
+<!--</div>-->
+<label for="typeahead-basic">Search for a state:</label>
+<input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"/>
+<hr>
+<ul class="list-group">
   <app-tonie-card
-    class="col-lg-2 col-md-4 col-sm-6 col-12"
+    [myList]="false"
     *ngFor="let tonie of allTonies | async"
-    [tonie]="tonie">
-  </app-tonie-card>
-</div>
+    [tonie]="tonie"></app-tonie-card>
+</ul>

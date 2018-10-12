@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Tonie } from '../../shared/interfaces/tonies';
 import { ToniesService } from '../../services/tonies.service';
 
 @Component({

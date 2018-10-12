@@ -1,15 +1,15 @@
-<ngb-tabset>
-  <ngb-tab title="Meine Tonies">
-    <ng-template ngbTabContent>
-      <app-my-tonies [myList]="true"></app-my-tonies>
-    </ng-template>
-  </ngb-tab>
-  <ngb-tab>
-    <ng-template ngbTabTitle><b>Alle</b> Tonies</ng-template>
-    <ng-template ngbTabContent>
-      <app-all-tonies [myList]="false"></app-all-tonies>
-    </ng-template>
-  </ngb-tab>
-</ngb-tabset>
-
+<!--<ngb-tabset>-->
+  <!--<ngb-tab title="Meine Tonies">-->
+    <!--<ng-template ngbTabContent>-->
+      <!--<app-my-tonies [myList]="true"></app-my-tonies>-->
+    <!--</ng-template>-->
+  <!--</ngb-tab>-->
+  <!--<ngb-tab>-->
+    <!--<ng-template ngbTabTitle><b>Alle</b> Tonies</ng-template>-->
+    <!--<ng-template ngbTabContent>-->
+      <!--<app-all-tonies [myList]="false"></app-all-tonies>-->
+    <!--</ng-template>-->
+  <!--</ngb-tab>-->
+<!--</ngb-tabset>-->
+<app-all-tonies [myList]="false"></app-all-tonies>
 

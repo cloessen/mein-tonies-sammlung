@@ -1,5 +1,66 @@
-.custom-card-hover:hover{
-  position: absolute;
+//.custom-card-hover:hover{
+//  position: absolute;
+//}
+
+
+/* ==========================================
+   FINAL.CSS
+   These are the final styles for the project.
+
+   Course:  CSS3 in 30 Days
+   Author:  Brad Hussey
+   Website: codecollege.ca
+   ========================================== */
+
+
+/* =========================
+   SLIDING PANELS
+   ========================= */
+.card{
+  overflow: hidden;
 }
 
 
+.slide{
+  //position: relative;
+  //display: inline-block;
+  overflow: hidden;
+  transition: all 500ms ease;
+  -webkit-transition: all 500ms ease;
+  transform: scale(0.9);
+}
+.slide-content{
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width:100%;
+  height: 50%;
+  //z-index: 1;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  text-align: center;
+  padding:20px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  background-color: rgba(0 , 0, 0, 0.3);
+  color: #ffffff;
+  //border: solid 1px rgba(0,0,0,0);
+border-radius: 15px 15px 0 0;
+  transition: all 500ms ease;
+  -webkit-transition: all 500ms ease;
+}
+.slide:hover {
+  transform: scale(1.01);
+}
+.slide:hover .slide-content{
+  transform: translate(0, 50%);
+  //-webkit-transform:translate(0, 0);
+}
+
+.slide-bottom .slide-content{
+  transform:translate(0, 100%);
+  //-webkit-transform:translate(0, 100%);
+}

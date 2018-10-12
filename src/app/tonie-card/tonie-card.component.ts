@@ -10,12 +10,12 @@ import { Tonie } from '../shared/interfaces/tonies';
   animations: [
     trigger('cardState', [
       state('normal', style({
+       
       })),
       state('hover', style({
-        transform: 'scale(1.15)',
-        'z-index': 1000
+
       })),
-      transition('normal <=> hover', animate(150)),
+      transition('normal <=> hover', animate(600)),
       // transition('hover => normal', animate(250))
     ])
   ]

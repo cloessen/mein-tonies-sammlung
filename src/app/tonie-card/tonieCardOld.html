@@ -1,0 +1,47 @@
+<div
+  (mouseenter)="handleHover('hover')"
+  (mouseleave)="handleHover('normal')"
+  class="card bg-light text-dark custom-card-hover mb-1">
+  <div class="card-header border" >{{tonie.name}}</div>
+  <div class="card-body slide slide-bottom">
+    <div [innerHTML]="tonie.itemLink | safeHtml" style="vertical-align: center; display: flex; justify-content: center; align-items: center;"></div>
+    <!--<img-->
+    <!--class="img-fluid rounded"-->
+    <!--src="{{tonie.imgUrl}}">-->
+    <div
+      [@cardState]="hoverState"
+      class="slide-content">
+    <span
+      (click)="handleAddTonie(tonie)"
+      *ngIf="!myList"
+      placement="top"
+      container="body"
+      ngbTooltip="Zu meinen Tonies"
+      class="badge badge-primary">
+      <i class="far fa-plus-square fa-2x"></i>
+    </span>
+      <span
+        (click)="handleRemoveTonie(tonie)"
+        *ngIf="myList"
+        placement="top"
+        container="body"
+        ngbTooltip="von meinen Tonies entfernen"
+        class="badge badge-primary">
+      <i class="far fa-minus-square fa-2x"></i>
+    </span>
+      <ng-template #tipContent>Link zu Amazon <i class="fas fa-external-link-alt"></i></ng-template>
+      <a
+        *ngIf="!myList"
+        container="body"
+        [ngbTooltip]="tipContent"
+        href="{{tonie.itemLink}}"
+        target="_blank"
+        class="badge badge-info"><i class="fab fa-amazon fa-2x"></i>
+      </a>
+      <hr>
+
+    </div>
+
+  </div>
+</div>
+
